@@ -5,40 +5,40 @@ import styles from './landing.module.css'
 
 // Placeholder from the design; override with NEXT_PUBLIC_WHATSAPP_NUMBER (digits only, with country code).
 const WHATSAPP_NUMBER = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '5541999999999').replace(/\D/g, '')
-const WHATSAPP_MESSAGE = 'Olá Jeferson, quero enviar as 12 contas de uma loja para o piloto.'
+const WHATSAPP_MESSAGE = 'Olá Jeferson, quero mandar as 12 contas de uma loja para o piloto gratuito.'
 const WA_HREF = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
 const MAIL_HREF = 'mailto:contato@datajoule.com.br'
 
 const CHECKS = [
-  'Demanda contratada × registrada e ultrapassagem (13 meses)',
+  'Demanda contratada × usada de fato e multas por ultrapassagem (13 meses)',
   'Energia reativa e UFER',
-  'Modalidade Verde × Azul, com a tarifa vigente da sua distribuidora',
-  'Erros de faturamento e cobranças em duplicidade',
-  'ICMS sobre demanda não utilizada (STF, Tema 176)',
+  'Modalidade Verde × Azul: qual sai mais barata na tarifa atual da sua distribuidora',
+  'Erros de faturamento, de leitura e cobranças em duplicidade',
+  'ICMS pago sobre demanda não utilizada (STF, Tema 176)',
 ]
 
 const STEPS = [
-  'Você envia 12 faturas em PDF',
-  'Em 5 dias úteis, relatório de 2 páginas por loja',
-  'Você decide: formulário à distribuidora, pequeno investimento ou jurídico. Modelo de ofício incluído.',
+  'Você manda 12 faturas da loja em PDF',
+  'Em 5 dias úteis, relatório de 2 páginas por loja, com o valor a recuperar',
+  'Você decide o caminho: pedido à distribuidora, pequeno investimento ou via jurídica. Modelo de ofício já incluído.',
 ]
 
 const FAQ = [
   {
     q: 'Preciso mandar contas de todas as lojas?',
-    a: 'Não. Uma loja basta para o piloto; a maior é a melhor.',
+    a: 'Não. Uma loja basta para o piloto — de preferência a de conta mais alta.',
   },
   {
     q: 'Vocês precisam vir até a loja?',
-    a: 'Não. Tudo é feito a partir das faturas e, se você quiser, do portal da distribuidora.',
+    a: 'Não. Tudo sai das próprias faturas e, se você autorizar, do portal da distribuidora. Ninguém entra na loja.',
   },
   {
     q: 'E se eu já tiver consultoria ou estiver no mercado livre?',
-    a: 'A demanda, o reativo e a modalidade continuam sendo cobrados pela distribuidora. A auditoria vale do mesmo jeito.',
+    a: 'Mesmo no mercado livre, demanda, reativo e modalidade continuam na conta da distribuidora. A auditoria vale do mesmo jeito.',
   },
   {
     q: 'Meus dados ficam seguros?',
-    a: 'Sim. Uso restrito à análise, conforme a LGPD; excluímos as faturas se você não seguir.',
+    a: 'Sim. As faturas servem só para a análise, conforme a LGPD. Se você não seguir, apagamos tudo.',
   },
 ]
 
@@ -153,7 +153,7 @@ function CtaBlock({ className }: { className?: string }) {
   return (
     <div className={`${styles.ctaStack} ${className ?? ''}`}>
       <PrimaryCta />
-      <a href={MAIL_HREF} className={styles.ctaSecondary}>ou enviar por e-mail</a>
+      <a href={MAIL_HREF} className={styles.ctaSecondary}>ou mandar por e-mail</a>
       <p className={styles.ctaNote}>Piloto gratuito para 1 a 3 lojas.</p>
     </div>
   )
@@ -180,11 +180,11 @@ export default function AuditoriaPage() {
 
       <section className={`${styles.container} ${styles.hero}`} aria-label="Apresentação">
         <div className={styles.heroGrid}>
-          <h1 className={styles.h1}>Quanto da sua conta de luz de média tensão está sendo pago à toa?</h1>
+          <h1 className={styles.h1}>Quanto da conta de luz das suas lojas você paga à toa?</h1>
           <div className={styles.heroCopy}>
             <p className={styles.lede}>
-              Auditoria de fatura Grupo A para redes de supermercados. Mande 12 contas de uma loja; em 5 dias úteis
-              devolvemos quanto dá para recuperar — sem visita, sem sensor, sem custo.
+              Auditoria da conta de luz de média tensão (Grupo A) para redes de supermercados. Mande 12 contas de uma
+              loja e, em 5 dias úteis, você sabe em reais quanto dá para recuperar — sem visita, sem sensor, sem custo.
             </p>
             <CtaBlock />
           </div>
@@ -207,11 +207,11 @@ export default function AuditoriaPage() {
             <div className={styles.caseStats}>
               <div>
                 <div className={styles.statHead}>1.500 kW contratados · 459 kW usados</div>
-                <div className={styles.statSub}>demanda contratada × máximo registrado em 13 meses</div>
+                <div className={styles.statSub}>demanda contratada × pico real de uso em 13 meses</div>
               </div>
               <div>
                 <div className={styles.statBig}>R$ 240 mil/ano</div>
-                <div className={styles.statBigSub}>em demanda ociosa</div>
+                <div className={styles.statBigSub}>em demanda paga à toa</div>
               </div>
             </div>
             <figure className={`${styles.card} ${styles.figure}`}>
@@ -225,7 +225,7 @@ export default function AuditoriaPage() {
       </section>
 
       <section className={`${styles.container} ${styles.section}`} aria-labelledby="verificamos">
-        <h2 id="verificamos" className={styles.h2}>O que verificamos em cada fatura</h2>
+        <h2 id="verificamos" className={styles.h2}>O que conferimos em cada fatura</h2>
         <div className={styles.checklist}>
           {CHECKS.map((item) => (
             <div key={item} className={styles.checkItem}>
@@ -239,7 +239,7 @@ export default function AuditoriaPage() {
           <div>
             <div className={styles.calloutLabel}>Também</div>
             <span className={styles.calloutText}>
-              Segunda opinião independente sobre propostas de migração ao mercado livre
+              Segunda opinião isenta sobre as propostas de mercado livre que chegam na sua mesa
             </span>
           </div>
         </div>
@@ -255,7 +255,7 @@ export default function AuditoriaPage() {
             </div>
           ))}
         </div>
-        <p className={styles.stepsNote}>Sem visita, sem instalação de equipamentos, sem integração de sistemas.</p>
+        <p className={styles.stepsNote}>Sem visita à loja, sem instalar equipamento, sem mexer nos seus sistemas.</p>
       </section>
 
       <section className={styles.sectionAlt} aria-labelledby="quanto-custa">
@@ -265,15 +265,15 @@ export default function AuditoriaPage() {
             <div className={`${styles.card} ${styles.priceCard}`}>
               <div className={styles.priceLabel}>Piloto</div>
               <div className={`${styles.priceValue} ${styles.priceValueAccent}`}>R$ 0</div>
-              <p>1 a 3 lojas. Em troca, autorização para usar o caso de forma anonimizada.</p>
+              <p>1 a 3 lojas. Em troca, só a autorização para citar o caso sem identificar a sua rede.</p>
             </div>
             <div className={`${styles.card} ${styles.priceCard}`}>
               <div className={styles.priceLabel}>Depois, se quiser seguir</div>
               <div className={styles.priceValue}>25%</div>
-              <p>da economia comprovada nas 12 faturas seguintes, ou assinatura mensal por loja para monitoramento contínuo.</p>
+              <p>da economia comprovada nas 12 faturas seguintes — ou uma assinatura mensal por loja, para acompanhar as contas todo mês.</p>
             </div>
           </div>
-          <p className={styles.priceNote}>Se não encontrarmos nada, você ganha a confirmação de que está tudo certo.</p>
+          <p className={styles.priceNote}>Se não acharmos nada, você fica com a certeza de que a conta está certa. Sem custo.</p>
         </div>
       </section>
 
@@ -282,8 +282,8 @@ export default function AuditoriaPage() {
           <div className={styles.rule} aria-hidden="true" />
           <h2 id="independente" className={styles.manifestoTitle}>Independente de verdade</h2>
           <p className={styles.manifestoText}>
-            Não vendemos energia, solar nem migração. Não recebemos comissão de comercializadora. Quem paga é você — por
-            isso a resposta é a sua.
+            Não vendemos energia, painel solar nem migração para o mercado livre. Não recebemos comissão de ninguém.
+            Quem paga é você — e a resposta é só sua.
           </p>
         </div>
       </section>
@@ -298,8 +298,8 @@ export default function AuditoriaPage() {
             <div className={styles.whoRole}>Engenheiro de energia · CREA-PR 194835/D</div>
             <div className={styles.whoCompany}>Bronze Engenharia de Energia · CNPJ 19.824.419/0001-96 · Curitiba/PR</div>
             <p className={styles.whoBio}>
-              Antes disso, construí e operei um laboratório de resposta à demanda com o protocolo OpenADR 3.0, integrado
-              aos sinais do ONS e da Hydro-Québec.
+              Antes disso, construí e operei um laboratório de resposta à demanda (OpenADR 3.0) ligado aos sinais do ONS
+              e da Hydro-Québec. É essa leitura de carga que aplico às suas contas.
             </p>
           </div>
         </div>
@@ -335,7 +335,7 @@ export default function AuditoriaPage() {
       <section className={styles.finalCta} aria-label="Chamada final">
         <div className={`${styles.container} ${styles.finalCtaInner}`}>
           <h2 className={styles.finalTitle}>
-            Mande 12 contas de uma loja. Em 5 dias úteis, você sabe quanto dá para recuperar.
+            Mande 12 contas de uma loja. Em 5 dias úteis, você sabe, em reais, quanto dá para recuperar.
           </h2>
           <CtaBlock className={styles.finalCtaStack} />
         </div>
