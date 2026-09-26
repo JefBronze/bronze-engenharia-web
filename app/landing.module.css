@@ -1,5 +1,5 @@
-/* Data Joule — Auditoria de fatura landing.
-   Ported from the Claude Design file "Data Joule.dc.html". Tokens mirror the design. */
+/* Data Joule landing — tokens and components.
+   Ported from the Claude Design file "Data Joule.dc.html". */
 
 .root {
   --bg: #fbfaf8;
@@ -519,19 +519,6 @@
   color: var(--ink-2);
   text-wrap: pretty;
   max-width: 560px;
-}
-.whoLink {
-  font-size: 15px;
-  color: var(--muted);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  align-self: flex-start;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-}
-.whoLink:hover {
-  color: var(--accent);
 }
 
 /* ---------- FAQ ---------- */

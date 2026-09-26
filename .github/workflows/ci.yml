@@ -26,6 +26,3 @@ jobs:
         run: npm run build
         env:
           NEXT_TELEMETRY_DISABLED: "1"
-          KV_REST_API_URL: "https://localhost"
-          KV_REST_API_TOKEN: "dummy"
-          INGEST_API_KEY: "dummy"
