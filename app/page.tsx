@@ -7,7 +7,7 @@ import styles from './landing.module.css'
 const WHATSAPP_NUMBER = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '14389796085').replace(/\D/g, '')
 const WHATSAPP_MESSAGE = 'Olá Jeferson, gostaria de enviar 12 faturas de uma unidade para o diagnóstico-piloto.'
 const WA_HREF = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
-const MAIL_HREF = 'mailto:contato@datajoule.com.br'
+const MAIL_HREF = 'mailto:contato@data-joule.com'
 
 const CTA_LABEL = 'Enviar as faturas pelo WhatsApp'
 const CTA_NOTE = 'Diagnóstico-piloto sem custo para 1 a 3 unidades.'
@@ -411,7 +411,7 @@ export default function LandingPage() {
             <span>Bronze Engenharia de Energia · CNPJ 19.824.419/0001-96 · Curitiba/PR</span>
           </div>
           <div className={styles.footerCol}>
-            <a href={MAIL_HREF} className={styles.footerMail}>contato@datajoule.com.br</a>
+            <a href={MAIL_HREF} className={styles.footerMail}>contato@data-joule.com</a>
             <a href="#" className={styles.footerLink}>Política de privacidade (LGPD)</a>
           </div>
         </div>
