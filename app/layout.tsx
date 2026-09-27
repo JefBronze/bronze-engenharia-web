@@ -1,87 +1,91 @@
-import type { Metadata, Viewport } from "next";
-import { Chakra_Petch, DM_Sans, IBM_Plex_Mono } from "next/font/google";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/next";
-import { LocaleProvider } from "./lib/i18n";
-import { TitleUpdater } from "./components/TitleUpdater";
-import "./globals.css";
+import type { Metadata, Viewport } from 'next'
+import { Fragment_Mono, Source_Sans_3, Source_Serif_4 } from 'next/font/google'
+import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Analytics } from '@vercel/analytics/next'
+import './globals.css'
 
-const display = Chakra_Petch({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-display",
-});
+// Fonts are self-hosted through next/font: the CSP only allows font-src 'self',
+// so a Google Fonts <link> would be blocked.
+const sans = Source_Sans_3({
+  subsets: ['latin', 'latin-ext'],
+  weight: ['400', '600', '700'],
+  variable: '--dj-font-sans',
+  display: 'swap',
+})
 
-const body = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-body",
-});
+const serif = Source_Serif_4({
+  subsets: ['latin', 'latin-ext'],
+  weight: 'variable',
+  axes: ['opsz'],
+  variable: '--dj-font-serif',
+  display: 'swap',
+})
 
-const mono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-mono",
-});
+const mono = Fragment_Mono({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--dj-font-mono',
+  display: 'swap',
+})
 
+const SITE_URL = 'https://data-joule.com'
+const TITLE = 'Data Joule — Auditoria de faturas de energia Grupo A'
+const DESCRIPTION =
+  'Auditoria de faturas de energia para consumidores de média tensão (Grupo A): demanda contratada em excesso, energia reativa, modalidade tarifária e erros de faturamento. Envie 12 faturas de uma unidade; em 5 dias úteis você recebe o valor recuperável, sem visita técnica, sem equipamentos e sem custo.'
 
 export const viewport: Viewport = {
-  themeColor: "#09090f",
-};
+  themeColor: '#FBFAF8',
+}
 
 export const metadata: Metadata = {
-  title: "Data Joule — Grid Response, Chainlink-Settled",
-  description:
-    "An AI edge node runs live LLM inference and responds to real OpenADR 3.0 demand-response signals. Four power tiers, five utility sources, live telemetry from Montréal.",
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
   keywords: [
-    "OpenADR", "demand response", "AI edge compute", "grid interactive",
-    "LLM inference", "demand flexibility", "Internet of Energy", "edge AI",
+    'auditoria de fatura de energia',
+    'auditoria de conta de luz',
+    'Grupo A',
+    'média tensão',
+    'demanda contratada',
+    'energia reativa',
+    'UFER',
+    'tarifa verde',
+    'tarifa azul',
+    'ICMS demanda contratada',
+    'indústrias',
+    'supermercados',
+    'hospitais',
+    'shoppings',
+    'Curitiba',
   ],
-  alternates: {
-    canonical: "https://data-joule.com",
-  },
+  alternates: { canonical: SITE_URL },
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
-      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
     ],
-    apple: "/apple-touch-icon.png",
+    apple: '/apple-touch-icon.png',
   },
   openGraph: {
-    title: "Data Joule — Grid Response, Chainlink-Settled",
-    description:
-      "Real hardware. Real OpenADR 3.0 signals. An AI edge node throttles its LLM under grid stress — live telemetry from Montréal.",
-    url: "https://data-joule.com",
-    siteName: "Data Joule",
-    locale: "en_CA",
-    type: "website",
+    title: TITLE,
+    description: DESCRIPTION,
+    url: SITE_URL,
+    siteName: 'Data Joule',
+    locale: 'pt_BR',
+    type: 'website',
   },
-  twitter: {
-    card: "summary",
-    title: "Data Joule — Grid Response, Chainlink-Settled",
-    description:
-      "An AI edge node runs live LLM inference and responds to real OpenADR 3.0 demand-response signals. Four power tiers, five utility sources, live telemetry.",
-  },
-};
+  twitter: { card: 'summary', title: TITLE, description: DESCRIPTION },
+}
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${display.variable} ${body.variable} ${mono.variable} h-full`}
-    >
-      <body suppressHydrationWarning className="min-h-full bg-(--background) text-neutral-100 antialiased font-[family-name:var(--font-body)]">
-        <LocaleProvider>
-          <TitleUpdater />
-          {children}
-        </LocaleProvider>
+    <html lang="pt-BR" className={`${sans.variable} ${serif.variable} ${mono.variable}`}>
+      <body>
+        {children}
         <SpeedInsights />
         <Analytics />
       </body>
     </html>
-  );
+  )
 }
