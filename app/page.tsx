@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 import styles from './landing.module.css'
 
-// Placeholder from the design; override with NEXT_PUBLIC_WHATSAPP_NUMBER (digits only, with country code).
-const WHATSAPP_NUMBER = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '5541999999999').replace(/\D/g, '')
+// Default is the current contact number; override with NEXT_PUBLIC_WHATSAPP_NUMBER (digits only, with country code).
+const WHATSAPP_NUMBER = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '14389796085').replace(/\D/g, '')
 const WHATSAPP_MESSAGE = 'Olá Jeferson, gostaria de enviar 12 faturas de uma unidade para o diagnóstico-piloto.'
 const WA_HREF = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
 const MAIL_HREF = 'mailto:contato@datajoule.com.br'

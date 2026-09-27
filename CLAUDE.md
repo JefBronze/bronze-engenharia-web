@@ -27,6 +27,6 @@ npm run icons    # regenerate public/*.png from public/favicon.svg (uses sharp)
 
 ## Conventions
 
-- WhatsApp number comes from `NEXT_PUBLIC_WHATSAPP_NUMBER` (see `.env.example`); the default is the design's placeholder.
+- WhatsApp number comes from `NEXT_PUBLIC_WHATSAPP_NUMBER` (see `.env.example`); the default in page.tsx is the current contact number.
 - The demand chart is inline SVG computed from `DEMAND_KW` in `page.tsx`; keep the geometry constants (`CHART`) if you change values so it still matches the design.
 - Security headers/CSP in `next.config.ts` are deliberate. Adding any third-party script, font or image host requires a CSP change.
