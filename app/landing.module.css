@@ -660,3 +660,26 @@
     display: block;
   }
 }
+
+/* ---------- phone typography ---------- */
+
+/* Justify running text on narrow screens. Hyphenation (pt-BR via <html lang>)
+   keeps word spacing even; headings, CTAs and short labels stay left-aligned. */
+@media (max-width: 719px) {
+  .lede,
+  .statSub,
+  .stepText,
+  .stepsNote,
+  .priceCard p,
+  .priceNote,
+  .manifestoText,
+  .basisLede,
+  .basisText,
+  .faqAnswer,
+  .calloutText,
+  .checkItem span {
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+}
