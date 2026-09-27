@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from './landing.module.css'
 
 // Placeholder from the design; override with NEXT_PUBLIC_WHATSAPP_NUMBER (digits only, with country code).
@@ -162,18 +162,18 @@ function Logo({ size, ink, accent }: { size: number; ink: string; accent: string
   )
 }
 
-function PrimaryCta({ className }: { className?: string }) {
+function PrimaryCta({ className, tabIndex }: { className?: string; tabIndex?: number }) {
   return (
-    <a href={WA_HREF} className={className ?? styles.ctaPrimary} target="_blank" rel="noopener noreferrer">
+    <a href={WA_HREF} className={className ?? styles.ctaPrimary} target="_blank" rel="noopener noreferrer" tabIndex={tabIndex}>
       <WhatsAppIcon />
       {CTA_LABEL}
     </a>
   )
 }
 
-function CtaBlock({ className }: { className?: string }) {
+function CtaBlock({ className, anchorRef }: { className?: string; anchorRef?: React.Ref<HTMLDivElement> }) {
   return (
-    <div className={`${styles.ctaStack} ${className ?? ''}`}>
+    <div ref={anchorRef} className={`${styles.ctaStack} ${className ?? ''}`}>
       <PrimaryCta />
       <a href={MAIL_HREF} className={styles.ctaSecondary}>ou enviar por e-mail</a>
       <p className={styles.ctaNote}>{CTA_NOTE}</p>
@@ -183,6 +183,29 @@ function CtaBlock({ className }: { className?: string }) {
 
 export default function LandingPage() {
   const [open, setOpen] = useState<number>(0)
+  const [ctaOnScreen, setCtaOnScreen] = useState(true)
+  const heroCtaRef = useRef<HTMLDivElement>(null)
+  const finalCtaRef = useRef<HTMLDivElement>(null)
+  const footerRef = useRef<HTMLElement>(null)
+
+  // Show the sticky WhatsApp bar only while none of the in-page CTAs (or the footer) is visible,
+  // so it never stacks under the hero button on small screens.
+  useEffect(() => {
+    const targets = [heroCtaRef.current, finalCtaRef.current, footerRef.current].filter(
+      (el): el is HTMLElement => el !== null,
+    )
+    if (!targets.length || typeof IntersectionObserver === 'undefined') return
+    const visible = new Set<Element>()
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) visible.add(e.target)
+        else visible.delete(e.target)
+      }
+      setCtaOnScreen(visible.size > 0)
+    })
+    targets.forEach((el) => io.observe(el))
+    return () => io.disconnect()
+  }, [])
 
   return (
     <div className={styles.root}>
@@ -210,7 +233,7 @@ export default function LandingPage() {
               varejo. Envie 12 faturas de uma unidade; em 5 dias úteis você recebe o valor recuperável, sem visita
               técnica, sem equipamentos e sem custo.
             </p>
-            <CtaBlock />
+            <CtaBlock anchorRef={heroCtaRef} />
           </div>
         </div>
         <div className={styles.byline}>
@@ -372,11 +395,11 @@ export default function LandingPage() {
           <h2 className={styles.finalTitle}>
             Envie 12 faturas de uma unidade. Em 5 dias úteis, você sabe exatamente quanto pode recuperar.
           </h2>
-          <CtaBlock className={styles.finalCtaStack} />
+          <CtaBlock className={styles.finalCtaStack} anchorRef={finalCtaRef} />
         </div>
       </section>
 
-      <footer className={styles.footer}>
+      <footer ref={footerRef} className={styles.footer}>
         <div className={`${styles.container} ${styles.footerInner}`}>
           <div className={styles.footerCol}>
             <span className={styles.brand}>
@@ -394,8 +417,8 @@ export default function LandingPage() {
         </div>
       </footer>
 
-      <div className={styles.sticky}>
-        <PrimaryCta className={styles.stickyCta} />
+      <div className={`${styles.sticky} ${ctaOnScreen ? styles.stickyHidden : ''}`} aria-hidden={ctaOnScreen}>
+        <PrimaryCta className={styles.stickyCta} tabIndex={ctaOnScreen ? -1 : undefined} />
       </div>
     </div>
   )
