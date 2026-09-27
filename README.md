@@ -1,6 +1,6 @@
 # data-joule-web
 
-Site público da Data Joule — [data-joule.com](https://data-joule.com): auditoria de fatura de energia Grupo A para redes de supermercados.
+Site público da Data Joule — [data-joule.com](https://data-joule.com): auditoria de faturas de energia Grupo A (média tensão) para indústrias, supermercados, hospitais, shoppings e redes de varejo.
 
 Uma única página (Next.js App Router, TypeScript), sem backend. O layout foi portado do projeto no Claude Design ("Data Joule.dc.html").
 
@@ -48,5 +48,4 @@ Vercel, branch `master`. CI (`.github/workflows/ci.yml`) roda `lint` e `build` e
 
 ## Pendências conhecidas
 
-- Foto do fundador: o slot na seção "Quem somos" é um placeholder estilizado.
 - "Política de privacidade (LGPD)" no rodapé ainda aponta para `#`.

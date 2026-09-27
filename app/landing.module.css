@@ -459,66 +459,39 @@
   text-wrap: pretty;
 }
 
-/* ---------- quem somos ---------- */
+/* ---------- base técnica ---------- */
 
-.whoRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: clamp(20px, 3vw, 40px);
-  align-items: flex-start;
+.basisTitle {
+  margin-bottom: 8px;
 }
-.photoSlot {
-  width: 160px;
-  height: 200px;
-  flex: none;
-  border-radius: 10px;
-  border: 1px dashed #c9c2b8;
-  background: repeating-linear-gradient(
-    135deg,
-    var(--bg-alt) 0,
-    var(--bg-alt) 10px,
-    #efebe5 10px,
-    #efebe5 20px
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 12px;
-  font-size: 13px;
-  color: var(--muted);
-  overflow: hidden;
+.basisLede {
+  margin: 0 0 28px;
+  font-size: 17px;
+  color: var(--ink-2);
+  max-width: 680px;
+  text-wrap: pretty;
 }
-.photoSlot img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.basisGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 16px;
 }
-.whoText {
-  flex: 1 1 300px;
+.basisCard {
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
-.whoName {
-  font-family: var(--dj-font-serif), Georgia, serif;
-  font-weight: 500;
-  font-size: clamp(24px, 2.6vw, 32px);
-  line-height: 1.15;
-}
-.whoRole {
-  font-size: 16px;
-}
-.whoCompany {
+.basisRef {
+  font-family: var(--dj-font-mono), monospace;
   font-size: 15px;
-  color: var(--muted);
+  letter-spacing: -0.02em;
+  color: var(--accent);
 }
-.whoBio {
-  margin: 16px 0 0;
-  font-size: 16px;
+.basisText {
+  font-size: 15px;
   color: var(--ink-2);
   text-wrap: pretty;
-  max-width: 560px;
 }
 
 /* ---------- FAQ ---------- */

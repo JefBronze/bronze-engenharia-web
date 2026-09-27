@@ -29,9 +29,9 @@ const mono = Fragment_Mono({
 })
 
 const SITE_URL = 'https://data-joule.com'
-const TITLE = 'Data Joule — Auditoria da conta de luz Grupo A para supermercados'
+const TITLE = 'Data Joule — Auditoria de faturas de energia Grupo A'
 const DESCRIPTION =
-  'Auditoria da conta de luz de média tensão (Grupo A) para redes de supermercados. Mande 12 contas de uma loja e, em 5 dias úteis, saiba em reais quanto dá para recuperar. Sem visita, sem sensor, sem custo.'
+  'Auditoria de faturas de energia para consumidores de média tensão (Grupo A): demanda contratada em excesso, energia reativa, modalidade tarifária e erros de faturamento. Envie 12 faturas de uma unidade; em 5 dias úteis você recebe o valor recuperável, sem visita técnica, sem equipamentos e sem custo.'
 
 export const viewport: Viewport = {
   themeColor: '#FBFAF8',
@@ -44,15 +44,18 @@ export const metadata: Metadata = {
   keywords: [
     'auditoria de fatura de energia',
     'auditoria de conta de luz',
-    'média tensão',
-    'demanda ociosa',
     'Grupo A',
+    'média tensão',
     'demanda contratada',
     'energia reativa',
     'UFER',
     'tarifa verde',
     'tarifa azul',
+    'ICMS demanda contratada',
+    'indústrias',
     'supermercados',
+    'hospitais',
+    'shoppings',
     'Curitiba',
   ],
   alternates: { canonical: SITE_URL },

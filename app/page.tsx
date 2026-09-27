@@ -5,40 +5,62 @@ import styles from './landing.module.css'
 
 // Placeholder from the design; override with NEXT_PUBLIC_WHATSAPP_NUMBER (digits only, with country code).
 const WHATSAPP_NUMBER = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '5541999999999').replace(/\D/g, '')
-const WHATSAPP_MESSAGE = 'Olá Jeferson, quero mandar as 12 contas de uma loja para o piloto gratuito.'
+const WHATSAPP_MESSAGE = 'Olá Jeferson, gostaria de enviar 12 faturas de uma unidade para o diagnóstico-piloto.'
 const WA_HREF = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
 const MAIL_HREF = 'mailto:contato@datajoule.com.br'
 
+const CTA_LABEL = 'Enviar as faturas pelo WhatsApp'
+const CTA_NOTE = 'Diagnóstico-piloto sem custo para 1 a 3 unidades.'
+
 const CHECKS = [
-  'Demanda contratada × usada de fato e multas por ultrapassagem (13 meses)',
-  'Energia reativa e UFER',
-  'Modalidade Verde × Azul: qual sai mais barata na tarifa atual da sua distribuidora',
-  'Erros de faturamento, de leitura e cobranças em duplicidade',
-  'ICMS pago sobre demanda não utilizada (STF, Tema 176)',
+  'Demanda contratada versus registrada e ultrapassagem, em 13 ciclos de faturamento',
+  'Energia reativa excedente e UFER (fator de potência)',
+  'Enquadramento tarifário Verde ou Azul, calculado com a tarifa homologada da sua distribuidora',
+  'Erros de faturamento, cobranças em duplicidade e tributos aplicados indevidamente',
+  'ICMS sobre demanda contratada não utilizada (STF, Tema 176 de repercussão geral)',
 ]
 
 const STEPS = [
-  'Você manda 12 faturas da loja em PDF',
-  'Em 5 dias úteis, relatório de 2 páginas por loja, com o valor a recuperar',
-  'Você decide o caminho: pedido à distribuidora, pequeno investimento ou via jurídica. Modelo de ofício já incluído.',
+  'Você envia 12 faturas consecutivas em PDF',
+  'Em 5 dias úteis, relatório técnico de 2 páginas por unidade, assinado por engenheiro',
+  'Você decide o encaminhamento: solicitação à distribuidora, ajuste técnico ou medida jurídica. Modelo de ofício incluído.',
+]
+
+const BASIS = [
+  {
+    ref: 'REN ANEEL 1.000/2021',
+    text: 'Regras de faturamento do Grupo A: demanda, ultrapassagem, reativo e modalidades tarifárias.',
+  },
+  {
+    ref: 'REH ANEEL vigente',
+    text: 'Tarifas homologadas da sua distribuidora, aplicadas ciclo a ciclo — não médias nem valores de tabela genérica.',
+  },
+  {
+    ref: 'STF · Tema 176',
+    text: 'Repercussão geral: ICMS não incide sobre demanda contratada e não utilizada.',
+  },
+  {
+    ref: 'CREA-PR · ART',
+    text: 'Relatório assinado por engenheiro registrado, com Anotação de Responsabilidade Técnica quando exigida.',
+  },
 ]
 
 const FAQ = [
   {
-    q: 'Preciso mandar contas de todas as lojas?',
-    a: 'Não. Uma loja basta para o piloto — de preferência a de conta mais alta.',
+    q: 'Preciso enviar faturas de todas as unidades?',
+    a: 'Não. Uma unidade é suficiente para o diagnóstico-piloto; recomendamos a de maior consumo.',
   },
   {
-    q: 'Vocês precisam vir até a loja?',
-    a: 'Não. Tudo sai das próprias faturas e, se você autorizar, do portal da distribuidora. Ninguém entra na loja.',
+    q: 'É necessária visita técnica?',
+    a: 'Não. A análise é feita integralmente a partir das faturas e, se autorizado, dos dados do portal da distribuidora.',
   },
   {
-    q: 'E se eu já tiver consultoria ou estiver no mercado livre?',
-    a: 'Mesmo no mercado livre, demanda, reativo e modalidade continuam na conta da distribuidora. A auditoria vale do mesmo jeito.',
+    q: 'Já tenho consultoria ou estou no mercado livre. A auditoria ainda se aplica?',
+    a: 'Sim. Demanda, energia reativa e modalidade tarifária continuam sendo faturadas pela distribuidora, dentro ou fora do mercado livre. A auditoria também funciona como contraprova independente da consultoria atual.',
   },
   {
-    q: 'Meus dados ficam seguros?',
-    a: 'Sim. As faturas servem só para a análise, conforme a LGPD. Se você não seguir, apagamos tudo.',
+    q: 'Como são tratados os meus dados?',
+    a: 'Uso restrito à análise, conforme a LGPD. Caso não haja continuidade, as faturas são excluídas ao final do diagnóstico.',
   },
 ]
 
@@ -144,7 +166,7 @@ function PrimaryCta({ className }: { className?: string }) {
   return (
     <a href={WA_HREF} className={className ?? styles.ctaPrimary} target="_blank" rel="noopener noreferrer">
       <WhatsAppIcon />
-      Mandar as contas pelo WhatsApp
+      {CTA_LABEL}
     </a>
   )
 }
@@ -153,13 +175,13 @@ function CtaBlock({ className }: { className?: string }) {
   return (
     <div className={`${styles.ctaStack} ${className ?? ''}`}>
       <PrimaryCta />
-      <a href={MAIL_HREF} className={styles.ctaSecondary}>ou mandar por e-mail</a>
-      <p className={styles.ctaNote}>Piloto gratuito para 1 a 3 lojas.</p>
+      <a href={MAIL_HREF} className={styles.ctaSecondary}>ou enviar por e-mail</a>
+      <p className={styles.ctaNote}>{CTA_NOTE}</p>
     </div>
   )
 }
 
-export default function AuditoriaPage() {
+export default function LandingPage() {
   const [open, setOpen] = useState<number>(0)
 
   return (
@@ -180,11 +202,13 @@ export default function AuditoriaPage() {
 
       <section className={`${styles.container} ${styles.hero}`} aria-label="Apresentação">
         <div className={styles.heroGrid}>
-          <h1 className={styles.h1}>Quanto da conta de luz das suas lojas você paga à toa?</h1>
+          <h1 className={styles.h1}>Sua conta de energia pode estar correta e, ainda assim, custar mais do que deveria.</h1>
           <div className={styles.heroCopy}>
             <p className={styles.lede}>
-              Auditoria da conta de luz de média tensão (Grupo A) para redes de supermercados. Mande 12 contas de uma
-              loja e, em 5 dias úteis, você sabe em reais quanto dá para recuperar — sem visita, sem sensor, sem custo.
+              Identificamos demanda contratada em excesso, energia reativa, modalidade tarifária inadequada e erros de
+              faturamento em consumidores de média tensão — indústrias, supermercados, hospitais, shoppings e redes de
+              varejo. Envie 12 faturas de uma unidade; em 5 dias úteis você recebe o valor recuperável, sem visita
+              técnica, sem equipamentos e sem custo.
             </p>
             <CtaBlock />
           </div>
@@ -202,16 +226,18 @@ export default function AuditoriaPage() {
 
       <section className={styles.sectionAlt} aria-label="Caso real">
         <div className={`${styles.container} ${styles.section}`}>
-          <p className={styles.eyebrow}>Caso real — cliente da Enel</p>
+          <p className={styles.eyebrow}>Caso real — consumidor Grupo A, área de concessão Enel</p>
           <div className={styles.caseRow}>
             <div className={styles.caseStats}>
               <div>
                 <div className={styles.statHead}>1.500 kW contratados · 459 kW usados</div>
-                <div className={styles.statSub}>demanda contratada × pico real de uso em 13 meses</div>
+                <div className={styles.statSub}>
+                  demanda contratada versus máxima registrada em 13 meses — a distorção mais frequente em nossas auditorias
+                </div>
               </div>
               <div>
                 <div className={styles.statBig}>R$ 240 mil/ano</div>
-                <div className={styles.statBigSub}>em demanda paga à toa</div>
+                <div className={styles.statBigSub}>pagos por demanda contratada e não utilizada</div>
               </div>
             </div>
             <figure className={`${styles.card} ${styles.figure}`}>
@@ -224,8 +250,8 @@ export default function AuditoriaPage() {
         </div>
       </section>
 
-      <section className={`${styles.container} ${styles.section}`} aria-labelledby="verificamos">
-        <h2 id="verificamos" className={styles.h2}>O que conferimos em cada fatura</h2>
+      <section className={`${styles.container} ${styles.section}`} aria-labelledby="escopo">
+        <h2 id="escopo" className={styles.h2}>Escopo da auditoria</h2>
         <div className={styles.checklist}>
           {CHECKS.map((item) => (
             <div key={item} className={styles.checkItem}>
@@ -237,16 +263,16 @@ export default function AuditoriaPage() {
         <div className={styles.callout}>
           <CheckIcon filled />
           <div>
-            <div className={styles.calloutLabel}>Também</div>
+            <div className={styles.calloutLabel}>Sob demanda</div>
             <span className={styles.calloutText}>
-              Segunda opinião isenta sobre as propostas de mercado livre que chegam na sua mesa
+              Parecer técnico independente sobre propostas de migração ao mercado livre de energia
             </span>
           </div>
         </div>
       </section>
 
-      <section className={`${styles.container} ${styles.howSection}`} aria-labelledby="como-funciona">
-        <h2 id="como-funciona" className={styles.h2}>Como funciona</h2>
+      <section className={`${styles.container} ${styles.howSection}`} aria-labelledby="como-conduzimos">
+        <h2 id="como-conduzimos" className={styles.h2}>Como conduzimos a auditoria</h2>
         <div className={styles.stepsGrid}>
           {STEPS.map((text, i) => (
             <div key={i} className={`${styles.card} ${styles.step}`}>
@@ -255,52 +281,61 @@ export default function AuditoriaPage() {
             </div>
           ))}
         </div>
-        <p className={styles.stepsNote}>Sem visita à loja, sem instalar equipamento, sem mexer nos seus sistemas.</p>
+        <p className={styles.stepsNote}>
+          Sem visita técnica, sem instalação de equipamentos e sem integração com seus sistemas.
+        </p>
       </section>
 
-      <section className={styles.sectionAlt} aria-labelledby="quanto-custa">
+      <section className={styles.sectionAlt} aria-labelledby="investimento">
         <div className={`${styles.container} ${styles.section}`}>
-          <h2 id="quanto-custa" className={styles.h2}>Quanto custa</h2>
+          <h2 id="investimento" className={styles.h2}>Investimento</h2>
           <div className={styles.priceGrid}>
             <div className={`${styles.card} ${styles.priceCard}`}>
-              <div className={styles.priceLabel}>Piloto</div>
+              <div className={styles.priceLabel}>Diagnóstico-piloto</div>
               <div className={`${styles.priceValue} ${styles.priceValueAccent}`}>R$ 0</div>
-              <p>1 a 3 lojas. Em troca, só a autorização para citar o caso sem identificar a sua rede.</p>
+              <p>Até 3 unidades, sem custo. Em contrapartida, autorização para divulgar o caso de forma anonimizada.</p>
             </div>
             <div className={`${styles.card} ${styles.priceCard}`}>
-              <div className={styles.priceLabel}>Depois, se quiser seguir</div>
+              <div className={styles.priceLabel}>Continuidade, a seu critério</div>
               <div className={styles.priceValue}>25%</div>
-              <p>da economia comprovada nas 12 faturas seguintes — ou uma assinatura mensal por loja, para acompanhar as contas todo mês.</p>
+              <p>
+                da economia comprovada nas 12 faturas seguintes, ou assinatura mensal por unidade para monitoramento
+                contínuo das faturas.
+              </p>
             </div>
           </div>
-          <p className={styles.priceNote}>Se não acharmos nada, você fica com a certeza de que a conta está certa. Sem custo.</p>
-        </div>
-      </section>
-
-      <section className={`${styles.container} ${styles.manifesto}`} aria-labelledby="independente">
-        <div className={styles.manifestoInner}>
-          <div className={styles.rule} aria-hidden="true" />
-          <h2 id="independente" className={styles.manifestoTitle}>Independente de verdade</h2>
-          <p className={styles.manifestoText}>
-            Não vendemos energia, painel solar nem migração para o mercado livre. Não recebemos comissão de ninguém.
-            Quem paga é você — e a resposta é só sua.
+          <p className={styles.priceNote}>
+            Se não houver valor a recuperar, você recebe a confirmação técnica de que o faturamento está correto — sem
+            cobrança.
           </p>
         </div>
       </section>
 
-      <section className={styles.sectionAlt} aria-label="Quem somos">
-        <div className={`${styles.container} ${styles.section} ${styles.whoRow}`}>
-          <div className={styles.photoSlot} role="img" aria-label="Foto de Jeferson Bronze">
-            foto de Jeferson
-          </div>
-          <div className={styles.whoText}>
-            <div className={styles.whoName}>Jeferson Bronze</div>
-            <div className={styles.whoRole}>Engenheiro de energia · CREA-PR 194835/D</div>
-            <div className={styles.whoCompany}>Bronze Engenharia de Energia · CNPJ 19.824.419/0001-96 · Curitiba/PR</div>
-            <p className={styles.whoBio}>
-              Antes disso, construí e operei um laboratório de resposta à demanda (OpenADR 3.0) ligado aos sinais do ONS
-              e da Hydro-Québec. É essa leitura de carga que aplico às suas contas.
-            </p>
+      <section className={`${styles.container} ${styles.manifesto}`} aria-labelledby="independencia">
+        <div className={styles.manifestoInner}>
+          <div className={styles.rule} aria-hidden="true" />
+          <h2 id="independencia" className={styles.manifestoTitle}>Independência como método</h2>
+          <p className={styles.manifestoText}>
+            Não comercializamos energia, sistemas fotovoltaicos nem migração ao mercado livre. Não recebemos comissão de
+            comercializadoras, integradoras ou fabricantes. Nossa única remuneração vem do cliente — por isso o parecer
+            é técnico, e responde apenas a você.
+          </p>
+        </div>
+      </section>
+
+      <section className={styles.sectionAlt} aria-labelledby="base-tecnica">
+        <div className={`${styles.container} ${styles.section}`}>
+          <h2 id="base-tecnica" className={`${styles.h2} ${styles.basisTitle}`}>Base técnica e regulatória</h2>
+          <p className={styles.basisLede}>
+            Cada apontamento do relatório cita a norma, a tarifa homologada ou a decisão judicial que o fundamenta.
+          </p>
+          <div className={styles.basisGrid}>
+            {BASIS.map((item) => (
+              <div key={item.ref} className={`${styles.card} ${styles.basisCard}`}>
+                <span className={styles.basisRef}>{item.ref}</span>
+                <span className={styles.basisText}>{item.text}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -335,7 +370,7 @@ export default function AuditoriaPage() {
       <section className={styles.finalCta} aria-label="Chamada final">
         <div className={`${styles.container} ${styles.finalCtaInner}`}>
           <h2 className={styles.finalTitle}>
-            Mande 12 contas de uma loja. Em 5 dias úteis, você sabe, em reais, quanto dá para recuperar.
+            Envie 12 faturas de uma unidade. Em 5 dias úteis, você sabe exatamente quanto pode recuperar.
           </h2>
           <CtaBlock className={styles.finalCtaStack} />
         </div>
