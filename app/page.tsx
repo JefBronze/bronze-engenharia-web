@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 import styles from './landing.module.css'
 
 // Default is the current contact number; override with NEXT_PUBLIC_WHATSAPP_NUMBER (digits only, with country code).
@@ -412,7 +413,7 @@ export default function LandingPage() {
           </div>
           <div className={styles.footerCol}>
             <a href={MAIL_HREF} className={styles.footerMail}>contato@data-joule.com</a>
-            <a href="#" className={styles.footerLink}>Política de privacidade (LGPD)</a>
+            <Link href="/privacidade" className={styles.footerLink}>Política de privacidade (LGPD)</Link>
           </div>
         </div>
       </footer>

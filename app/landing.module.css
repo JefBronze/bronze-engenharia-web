@@ -683,3 +683,60 @@
     -webkit-hyphens: auto;
   }
 }
+
+/* ---------- privacy / legal page ---------- */
+
+.brandLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  min-height: 44px;
+}
+.legal {
+  max-width: 760px;
+  padding-top: clamp(32px, 6vw, 64px);
+  padding-bottom: clamp(48px, 8vw, 96px);
+  color: var(--ink-2);
+}
+.legalTitle {
+  margin: 0 0 6px;
+  font-family: var(--dj-font-serif), Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.legalMeta {
+  margin: 0 0 28px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.legal h2 {
+  margin: 32px 0 10px;
+  font-family: var(--dj-font-serif), Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(20px, 2.4vw, 26px);
+  line-height: 1.2;
+  color: var(--ink);
+}
+.legal p,
+.legal li {
+  text-wrap: pretty;
+}
+.legal ul {
+  margin: 0 0 12px;
+  padding-left: 20px;
+}
+.legal li {
+  margin-bottom: 8px;
+}
+@media (max-width: 719px) {
+  .legal p,
+  .legal li {
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+}
