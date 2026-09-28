@@ -46,6 +46,3 @@ next.config.ts         cabeçalhos de segurança (CSP restrita: só same-origin)
 
 Vercel, branch `master`. CI (`.github/workflows/ci.yml`) roda `lint` e `build` em push/PR.
 
-## Pendências conhecidas
-
-- "Política de privacidade (LGPD)" no rodapé ainda aponta para `#`.
