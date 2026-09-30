@@ -65,58 +65,52 @@ const FAQ = [
   },
 ]
 
-// Registered demand, kW, ago/2017 → ago/2018 (13 months), anonymised real invoice.
-const DEMAND_KW = [312, 298, 340, 388, 402, 459, 431, 376, 351, 226, 264, 305, 333]
-const CONTRACTED_KW = 1500
-const CHART = { w: 400, h: 240, left: 40, right: 392, top: 31.9, base: 210, barW: 18 }
+// Share of the annual peak demand left unused in a typical month (median per segment).
+// Source: BDGD/ANEEL 2025 (Copel-DIS), A4 units active with 12 months of measurement and no
+// self-generation; months 1–11 (DEM_12 anomalous in the 2025 file). See auditoria-fatura/bdgd_analise.md.
+const IDLE_SHARE = [
+  { seg: 'Educação', units: 468, share: 0.296 },
+  { seg: 'Hospitais', units: 241, share: 0.206 },
+  { seg: 'Todas as unidades A4', units: 11780, share: 0.164, ref: true },
+  { seg: 'Varejo', units: 1581, share: 0.127 },
+  { seg: 'Supermercados', units: 870, share: 0.117 },
+  { seg: 'Indústria', units: 3722, share: 0.111 },
+]
+const CHART = { w: 400, h: 224, left: 118, right: 372, top: 16, rowH: 34, barH: 18 }
 
-function DemandChart() {
-  const { w, h, left, right, top, base, barW } = CHART
-  const y = (kw: number) => base - ((base - top) * kw) / CONTRACTED_KW
+function IdleShareChart() {
+  const { w, h, left, right, top, rowH, barH } = CHART
   const span = right - left
-  const slot = span / DEMAND_KW.length
-  const x = (i: number) => left + 4.5 + i * slot
-  const peakIdx = DEMAND_KW.indexOf(Math.max(...DEMAND_KW))
-  const peakX = x(peakIdx) + barW / 2
-  const months = ['ago/17', 'out', 'dez', 'fev', 'abr', 'jun', 'ago/18']
-
+  const max = 0.35
+  const x = (v: number) => left + (span * v) / max
+  const pct = (v: number) => `${Math.round(v * 100)}%`
   return (
     <svg
       viewBox={`0 0 ${w} ${h}`}
       className={styles.chart}
       role="img"
-      aria-label="Demanda contratada 1.500 kW versus demanda registrada entre 226 e 459 kW, ago/2017 a ago/2018"
+      aria-label="Parcela da demanda de pico sem uso em um mês típico, por segmento, Paraná 2025: educação 30%, hospitais 21%, todas as unidades 16%, varejo 13%, supermercados 12%, indústria 11%"
     >
-      <text x={left - 4} y={14} textAnchor="end" fontSize="13" fill="#6B665F">kW</text>
-      {[500, 1000].map((kw) => (
-        <line key={kw} x1={left} x2={right} y1={y(kw)} y2={y(kw)} stroke="#ECE7E0" />
+      {[0.1, 0.2, 0.3].map((v) => (
+        <line key={v} x1={x(v)} x2={x(v)} y1={top - 4} y2={top + rowH * IDLE_SHARE.length} stroke="#ECE7E0" />
       ))}
-      {[0, 500, 1000, 1500].map((kw) => (
-        <text key={kw} x={left - 4} y={y(kw) + 3} textAnchor="end" fontSize="13" fill="#6B665F">
-          {kw.toLocaleString('pt-BR')}
-        </text>
-      ))}
-      <rect x={left} y={y(CONTRACTED_KW)} width={span} height={y(DEMAND_KW[peakIdx]) - y(CONTRACTED_KW)} fill="#B5561A" opacity="0.08" />
-      <text x={left + span / 2} y={98} textAnchor="middle" fontSize="14" fontStyle="italic" fill="#8A4212">
-        demanda paga e não usada
-      </text>
-      <line x1={left} x2={right} y1={y(CONTRACTED_KW)} y2={y(CONTRACTED_KW)} stroke="#B5561A" strokeWidth="2" />
-      <text x={right} y={y(CONTRACTED_KW) - 7} textAnchor="end" fontSize="14" fontWeight="600" fill="#B5561A">
-        contratado: 1.500 kW
-      </text>
-      {DEMAND_KW.map((kw, i) => (
-        <rect key={i} x={x(i)} y={y(kw)} width={barW} height={base - y(kw)} fill="#2B2926" />
-      ))}
-      <line x1={peakX} x2={peakX} y1={140} y2={y(DEMAND_KW[peakIdx]) - 2} stroke="#2B2926" strokeWidth="1" />
-      <text x={peakX} y={135} textAnchor="middle" fontSize="14" fontWeight="600" fill="#2B2926">
-        máximo registrado: 459 kW
-      </text>
-      <line x1={left} x2={right} y1={base} y2={base} stroke="#B8B1A7" />
-      {months.map((m, i) => (
-        <text key={m} x={x(i * 2) + barW / 2} y={base + 18} textAnchor="middle" fontSize="13" fill="#6B665F">
-          {m}
-        </text>
-      ))}
+      {IDLE_SHARE.map((d, i) => {
+        const y = top + i * rowH
+        const fill = d.ref ? '#B5561A' : '#2B2926'
+        return (
+          <g key={d.seg}>
+            <title>{`${d.seg}: ${pct(d.share)} da demanda de pico sem uso (${d.units.toLocaleString('pt-BR')} unidades)`}</title>
+            <text x={left - 8} y={y + barH / 2 + 4} textAnchor="end" fontSize="12" fontWeight={d.ref ? 600 : 400} fill="#1A1917">
+              {d.seg}
+            </text>
+            <rect x={left} y={y} width={Math.max(x(d.share) - left, 4)} height={barH} rx="3" fill={fill} />
+            <text x={x(d.share) + 6} y={y + barH / 2 + 4} fontSize="12" fontWeight="600" fill="#1A1917">
+              {pct(d.share)}
+            </text>
+          </g>
+        )
+      })}
+      <line x1={left} x2={left} y1={top - 4} y2={top + rowH * IDLE_SHARE.length} stroke="#B8B1A7" />
     </svg>
   )
 }
@@ -248,26 +242,28 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className={styles.sectionAlt} aria-label="Caso real">
+      <section className={styles.sectionAlt} aria-label="Dados públicos do Paraná">
         <div className={`${styles.container} ${styles.section}`}>
-          <p className={styles.eyebrow}>Caso real — consumidor Grupo A, área de concessão Enel</p>
+          <p className={styles.eyebrow}>Dados públicos — 11.780 unidades de média tensão no Paraná (BDGD/ANEEL 2025)</p>
           <div className={styles.caseRow}>
             <div className={styles.caseStats}>
               <div>
-                <div className={styles.statHead}>1.500 kW contratados · 459 kW usados</div>
+                <div className={styles.statHead}>16% da demanda de pico fica sem uso em um mês típico</div>
                 <div className={styles.statSub}>
-                  demanda contratada versus máxima registrada em 13 meses — a distorção mais frequente em nossas auditorias
+                  mediana das unidades A4 da Copel com 12 meses de medição — mesmo com o contrato certo, o kW do mês de pico é pago o ano inteiro
                 </div>
               </div>
               <div>
-                <div className={styles.statBig}>R$ 240 mil/ano</div>
-                <div className={styles.statBigSub}>pagos por demanda contratada e não utilizada</div>
+                <div className={styles.statBig}>R$ 122 mi/ano</div>
+                <div className={styles.statBigSub}>pagos em demanda ociosa no estado, à tarifa da Copel, antes de qualquer análise de contrato</div>
               </div>
             </div>
             <figure className={`${styles.card} ${styles.figure}`}>
-              <DemandChart />
+              <IdleShareChart />
               <figcaption className={styles.figcaption}>
-                Dados anonimizados de fatura real, ago/2017–ago/2018, tarifa REH ANEEL vigente.
+                Mediana por segmento; sobra = 1 − demanda média mensal ÷ pico anual. BDGD/ANEEL ano-base 2025, Copel-DIS:
+                unidades A4 ativas, 12 meses de medição, sem geração própria, janeiro a novembro. Tarifa TUSD demanda A4
+                Verde R$ 20,78/kW (REH 3.472/2025), sem impostos.
               </figcaption>
             </figure>
           </div>
