@@ -1,4 +1,0 @@
-Contact: mailto:jefersonbronze@gmail.com
-Expires: 2027-05-03T00:00:00.000Z
-Policy: https://github.com/JefBronze/data-joule-web/blob/master/SECURITY.md
-Preferred-Languages: en, pt

@@ -25,6 +25,10 @@ npm run icons    # regenerate public/*.png from public/favicon.svg (uses sharp)
 - `app/globals.css` — minimal reset only. No Tailwind.
 - The sticky WhatsApp CTA is shown with a plain `@media (max-width: 719px)` rule, matching the design's 720px breakpoint.
 
+## Routing lockdown
+
+`proxy.ts` (Next 16's renamed middleware) allows only `/`, `/privacidade`, the favicon/icon files and `/email/logo-*.png` (loaded by the e-mail signature). Every other path is rewritten to the custom `app/not-found.tsx` with status 404. Adding a new public page or file means adding its path to `ALLOWED` in `proxy.ts`.
+
 ## Conventions
 
 - WhatsApp number comes from `NEXT_PUBLIC_WHATSAPP_NUMBER` (see `.env.example`); the default in page.tsx is the current contact number.

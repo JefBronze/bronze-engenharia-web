@@ -40,6 +40,7 @@ public/
   favicon.svg + PNGs   ícones (gerados por scripts/generate-icons.mjs)
   .well-known/security.txt
 next.config.ts         cabeçalhos de segurança (CSP restrita: só same-origin)
+proxy.ts               só / , /privacidade, ícones e logos do e-mail são públicos; o resto dá 404
 ```
 
 ## Deploy
