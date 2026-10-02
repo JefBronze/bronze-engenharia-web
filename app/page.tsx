@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import styles from './landing.module.css'
+import DemandCalculator from './DemandCalculator'
 
 // Default is the current contact number; override with NEXT_PUBLIC_WHATSAPP_NUMBER (digits only, with country code).
 const WHATSAPP_NUMBER = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '14389796085').replace(/\D/g, '')
@@ -268,6 +269,15 @@ export default function LandingPage() {
             </figure>
           </div>
         </div>
+      </section>
+
+      <section className={`${styles.container} ${styles.section}`} id="simulador" aria-labelledby="simulador-titulo">
+        <h2 id="simulador-titulo" className={styles.h2}>Simule a sua conta</h2>
+        <p className={styles.calcIntro}>
+          Para clientes Copel em média tensão (A4). Use dois números que estão na sua conta de luz e veja, na hora, quanto do
+          contrato de demanda fica sem uso.
+        </p>
+        <DemandCalculator whatsappNumber={WHATSAPP_NUMBER} />
       </section>
 
       <section className={`${styles.container} ${styles.section}`} aria-labelledby="escopo">
