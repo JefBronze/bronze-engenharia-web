@@ -1,6 +1,8 @@
 # data-joule-web
 
-Site público da Data Joule — [data-joule.com](https://data-joule.com): auditoria de faturas de energia Grupo A (média tensão) para indústrias, supermercados, hospitais, shoppings e redes de varejo.
+Site público da Bronze Engenharia de Energia — [bronze-engenharia.com.br](https://www.bronze-engenharia.com.br): auditoria de faturas de energia Grupo A (média tensão) para indústrias, supermercados, hospitais, shoppings e redes de varejo.
+
+Até outubro de 2026 esta página era a Data Joule em data-joule.com. Os domínios foram trocados: data-joule.com passou a servir o observatório de energia (repositório `bronze-web`), e esta página passou para a marca Bronze Engenharia. O nome do repositório ficou.
 
 Uma única página (Next.js App Router, TypeScript), sem backend. O layout foi portado do projeto no Claude Design ("Data Joule.dc.html").
 

@@ -28,8 +28,8 @@ const mono = Fragment_Mono({
   display: 'swap',
 })
 
-const SITE_URL = 'https://data-joule.com'
-const TITLE = 'Data Joule — Auditoria de faturas de energia Grupo A'
+const SITE_URL = 'https://www.bronze-engenharia.com.br'
+const TITLE = 'Bronze Engenharia de Energia — Auditoria de faturas de energia Grupo A'
 const DESCRIPTION =
   'Auditoria de faturas de energia para consumidores de média tensão (Grupo A): demanda contratada em excesso, energia reativa, modalidade tarifária e erros de faturamento. Envie 12 faturas de uma unidade; em 5 dias úteis você recebe o valor recuperável, sem visita técnica, sem equipamentos e sem custo.'
 
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     url: SITE_URL,
-    siteName: 'Data Joule',
+    siteName: 'Bronze Engenharia de Energia',
     locale: 'pt_BR',
     type: 'website',
   },

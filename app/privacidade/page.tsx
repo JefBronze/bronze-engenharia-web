@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Brand from '../Brand'
 import styles from '../landing.module.css'
 
 export const metadata: Metadata = {
-  title: 'Política de privacidade — Data Joule',
+  title: 'Política de privacidade — Bronze Engenharia de Energia',
   description:
-    'Como a Data Joule (Bronze Engenharia de Energia) trata os dados pessoais e as faturas de energia enviadas para o diagnóstico, conforme a LGPD.',
-  alternates: { canonical: 'https://data-joule.com/privacidade' },
+    'Como a Bronze Engenharia de Energia trata os dados pessoais e as faturas de energia enviadas para o diagnóstico, conforme a LGPD.',
+  alternates: { canonical: 'https://www.bronze-engenharia.com.br/privacidade' },
 }
 
 const UPDATED = '27 de setembro de 2026'
@@ -17,16 +18,8 @@ export default function PrivacyPage() {
     <div className={styles.root}>
       <header className={styles.header}>
         <div className={`${styles.container} ${styles.headerInner}`}>
-          <Link href="/" className={styles.brandLink} aria-label="Data Joule — página inicial">
-            <svg width={26} height={26} viewBox="0 0 36 36" aria-hidden="true" style={{ flex: 'none' }}>
-              <rect x="4" y="22" width="6" height="10" fill="#1A1917" />
-              <rect x="13" y="16" width="6" height="16" fill="#1A1917" />
-              <rect x="22" y="12" width="6" height="20" fill="#1A1917" />
-              <rect x="2" y="5" width="32" height="3" fill="#B5561A" />
-            </svg>
-            <span className={styles.wordmark}>
-              Data<span className={styles.wordmarkAccent}>_</span>Joule
-            </span>
+          <Link href="/" className={styles.brandLink} aria-label="Bronze Engenharia de Energia — página inicial">
+            <Brand />
           </Link>
           <Link href="/" className={styles.headerLink}>← Voltar</Link>
         </div>
@@ -37,13 +30,13 @@ export default function PrivacyPage() {
         <p className={styles.legalMeta}>Última atualização: {UPDATED}</p>
 
         <p>
-          Esta política explica como a Data Joule trata os dados pessoais e as faturas de energia que você nos envia,
+          Esta política explica como a Bronze Engenharia de Energia trata os dados pessoais e as faturas de energia que você nos envia,
           em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018, LGPD).
         </p>
 
         <h2>1. Quem é o controlador</h2>
         <p>
-          Bronze Engenharia de Energia, CNPJ 19.824.419/0001-96, Curitiba/PR, que opera a marca Data Joule.
+          Bronze Engenharia de Energia, CNPJ 19.824.419/0001-96, Curitiba/PR.
           Encarregado pelo tratamento de dados (DPO): Jeferson Bronze, pelo e-mail{' '}
           <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
         </p>
