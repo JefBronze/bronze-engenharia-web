@@ -15,6 +15,7 @@ const ALLOWED = new Set([
   '/apple-touch-icon.png',
   '/email/logo-lockup.png',
   '/email/logo-mark.png',
+  '/email/bronze-wordmark.png',
 ])
 
 export function proxy(req: NextRequest) {
