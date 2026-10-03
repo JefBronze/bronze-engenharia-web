@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import styles from './landing.module.css'
 import DemandCalculator from './DemandCalculator'
+import Brand from './Brand'
 
 // Default is the current contact number; override with NEXT_PUBLIC_WHATSAPP_NUMBER (digits only, with country code).
 const WHATSAPP_NUMBER = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '14389796085').replace(/\D/g, '')
@@ -97,7 +98,7 @@ function IdleShareChart() {
       ))}
       {IDLE_SHARE.map((d, i) => {
         const y = top + i * rowH
-        const fill = d.ref ? '#B5561A' : '#2B2926'
+        const fill = d.ref ? '#8A6737' : '#2B2926'
         return (
           <g key={d.seg}>
             <title>{`${d.seg}: ${pct(d.share)} da demanda de pico sem uso (${d.units.toLocaleString('pt-BR')} unidades)`}</title>
@@ -132,7 +133,7 @@ function CheckIcon({ filled = false }: { filled?: boolean }) {
   return (
     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" className={styles.checkIcon}>
       {filled ? (
-        <circle cx="11" cy="11" r="9.5" fill="#B5561A" />
+        <circle cx="11" cy="11" r="9.5" fill="#8A6737" />
       ) : (
         <circle cx="11" cy="11" r="9.5" stroke="#6B665F" strokeWidth="1.5" />
       )}
@@ -147,16 +148,6 @@ function CheckIcon({ filled = false }: { filled?: boolean }) {
   )
 }
 
-function Logo({ size, ink, accent }: { size: number; ink: string; accent: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 36 36" aria-hidden="true" style={{ flex: 'none' }}>
-      <rect x="4" y="22" width="6" height="10" fill={ink} />
-      <rect x="13" y="16" width="6" height="16" fill={ink} />
-      <rect x="22" y="12" width="6" height="20" fill={ink} />
-      <rect x="2" y="5" width="32" height="3" fill={accent} />
-    </svg>
-  )
-}
 
 function PrimaryCta({ className, tabIndex }: { className?: string; tabIndex?: number }) {
   return (
@@ -207,12 +198,7 @@ export default function LandingPage() {
     <div className={styles.root}>
       <header className={styles.header}>
         <div className={`${styles.container} ${styles.headerInner}`}>
-          <span className={styles.brand}>
-            <Logo size={26} ink="#1A1917" accent="#B5561A" />
-            <span className={styles.wordmark}>
-              Data<span className={styles.wordmarkAccent}>_</span>Joule
-            </span>
-          </span>
+          <Brand />
           <a href={WA_HREF} className={styles.headerLink} target="_blank" rel="noopener noreferrer">
             WhatsApp
           </a>
@@ -409,16 +395,12 @@ export default function LandingPage() {
       <footer ref={footerRef} className={styles.footer}>
         <div className={`${styles.container} ${styles.footerInner}`}>
           <div className={styles.footerCol}>
-            <span className={styles.brand}>
-              <Logo size={24} ink="#FFFFFF" accent="#E8A46C" />
-              <span className={`${styles.wordmark} ${styles.footerWordmark}`}>
-                Data<span className={styles.footerWordmarkAccent}>_</span>Joule
-              </span>
-            </span>
-            <span>Bronze Engenharia de Energia · CNPJ 19.824.419/0001-96 · Curitiba/PR</span>
+            <Brand footer />
+            <span>CNPJ 19.824.419/0001-96 · CREA-PR 194835/D · Curitiba/PR</span>
           </div>
           <div className={styles.footerCol}>
             <a href={MAIL_HREF} className={styles.footerMail}>contato@data-joule.com</a>
+            <a href="https://data-joule.com" className={styles.footerLink}>Observatório de energia: data-joule.com</a>
             <Link href="/privacidade" className={styles.footerLink}>Política de privacidade (LGPD)</Link>
           </div>
         </div>

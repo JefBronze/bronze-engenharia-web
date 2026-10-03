@@ -1,5 +1,6 @@
-/* Data Joule landing — tokens and components.
-   Ported from the Claude Design file "Data Joule.dc.html". */
+/* Bronze Engenharia de Energia — audit landing (bronze-engenharia.com.br). Tokens and components.
+   Layout ported from the Claude Design file "Data Joule.dc.html"; rebranded to Bronze in Oct 2026
+   (the Data Joule name now belongs to the energy observatory at data-joule.com). */
 
 .root {
   --bg: #fbfaf8;
@@ -10,9 +11,10 @@
   --muted: #6b665f;
   --line: #e6e1da;
   --line-soft: #ece7e0;
-  --accent: #b5561a;
-  --accent-deep: #8a4212;
-  --accent-light: #e8a46c;
+  /* Bronze brand palette (logo sheet): bronze #8A6737; deep and light steps for hover and dark surfaces. */
+  --accent: #8a6737;
+  --accent-deep: #6b4f28;
+  --accent-light: #d8b370;
   --bar: #2b2926;
   --footer-ink: #d8d2c9;
 
@@ -81,6 +83,26 @@
 }
 .wordmarkAccent {
   color: var(--accent);
+}
+.brandName {
+  font-family: var(--dj-font-serif), Georgia, serif;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--ink);
+}
+.brandSub {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.footerBrandName {
+  color: #ffffff;
+}
+.footerBrandSub {
+  color: var(--footer-ink);
 }
 .headerLink {
   display: inline-flex;

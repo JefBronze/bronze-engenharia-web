@@ -4,7 +4,7 @@ Guidance for Claude Code when working in this repository.
 
 ## What this is
 
-Single-page marketing site for data-joule.com (Next.js App Router, TypeScript). Portuguese (pt-BR) landing page for a Grupo A (média tensão) electricity-invoice audit service aimed at industries, supermarket chains, hospitals, malls and retail networks. No backend, no database, no API routes. The old FlexCompute/OpenADR demo site that used to live here was removed in September 2026.
+Single-page marketing site for **www.bronze-engenharia.com.br**, branded Bronze Engenharia de Energia (Next.js App Router, TypeScript). Until October 2026 it was the Data Joule site at data-joule.com; the domains were swapped, and data-joule.com now serves the energy observatory from the `bronze-web` repo. The repo name stayed. Brand: text wordmark in `app/Brand.tsx` (no logo mark for now), accent bronze `#8A6737` in `landing.module.css`, favicon is the bronze B tile (`npm run icons` regenerates the PNGs). The e-mail signature loads `data-joule.com/email/logo-*.png`, so those files are served by the observatory now; the copies here are unused. Portuguese (pt-BR) landing page for a Grupo A (média tensão) electricity-invoice audit service aimed at industries, supermarket chains, hospitals, malls and retail networks. No backend, no database, no API routes. The old FlexCompute/OpenADR demo site that used to live here was removed in September 2026.
 
 The page was ported from the Claude Design project "Data Joule" (file `Data Joule.dc.html`). When the design changes, re-port from that file rather than restyling ad hoc.
 
