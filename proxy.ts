@@ -16,6 +16,7 @@ const ALLOWED = new Set([
   '/email/logo-lockup.png',
   '/email/logo-mark.png',
   '/email/bronze-wordmark.png',
+  '/email/bronze-wordmark-v2.png',
 ])
 
 export function proxy(req: NextRequest) {
