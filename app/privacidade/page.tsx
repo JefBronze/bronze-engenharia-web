@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 const UPDATED = '27 de setembro de 2026'
-const EMAIL = 'contato@data-joule.com'
+const EMAIL = 'contato@bronze-engenharia.com.br'
 
 export default function PrivacyPage() {
   return (
